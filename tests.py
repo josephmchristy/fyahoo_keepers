@@ -38,22 +38,17 @@ class transactiontests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.transaction_add = {'type': 'Add',
+        cls.transaction_add = {'type': 'add',
                                'owner': 'John Doe',
                                'player': 'Add_Drop Player'}
         cls.transaction_drop = {'date': datetime.date(2020, 12, 9),
-                                'type': 'Drop',
+                                'type': 'drop',
                                 'owner': 'John Doe',
                                 'player': 'Add_Drop Player'}
-        cls.transaction_add_drop = {'date': datetime.date(2020, 12, 12),
-                                    'type': 'AddDrop',
-                                    'owner': 'John Doe',
-                                    'player': ('Add Player',
-                                               'Add_Drop Player')}
         cls.transaction_waiver = {'date': datetime.date(2020, 12, 12),
-                                  'type': 'Waiver',
+                                  'type': 'waiver',
                                   'owner': 'John Doe',
-                                  'player': ('Waiver Player', 'Add Player')}
+                                  'player': 'Waiver Player'}
 
     @classmethod
     def tearDownClass(cls):
@@ -75,27 +70,14 @@ class transactiontests(unittest.TestCase):
         self.assertEqual(dropped_player.owner, '')
         self.assertEqual(dropped_player.drop_date, datetime.date(2020, 12, 9))
 
-    # Test an add drop transaction
-    def test_add_drop(self):
-        transactions.addPlayer(self.transaction_add)
-        transactions.addDropWaiver(self.transaction_add_drop)
-        added_player = transactions.players[self.transaction_add_drop['player'][0]]
-        dropped_player = transactions.players[self.transaction_add_drop['player'][1]]
-        self.assertEqual(added_player.owner, 'John Doe')
-        self.assertEqual(dropped_player.owner, '')
-        self.assertEqual(dropped_player.drop_date, datetime.date(2020, 12, 12))
-
     # Test a waiver transaction
     def test_waiver(self):
-        waiverPlayer = transactions.Player('Waiver Player', 'John Doe', datetime.date(2020, 12, 8), 3)
+        waiverPlayer = transactions.Player('Waiver Player', 'John Doe', datetime.date(2020, 12, 8), 7)
         transactions.players.update({waiverPlayer.name: waiverPlayer})
-        transactions.addDropWaiver(self.transaction_waiver)
-        added_player = transactions.players[self.transaction_waiver['player'][0]]
-        dropped_player = transactions.players[self.transaction_waiver['player'][1]]
+        transactions.addPlayer(self.transaction_waiver)
+        added_player = transactions.players[self.transaction_waiver['player']]
         self.assertEqual(added_player.owner, 'John Doe')
-        self.assertEqual(added_player.cost, 3)
-        self.assertEqual(dropped_player.owner, '')
-        self.assertEqual(dropped_player.drop_date, datetime.date(2020, 12, 12))
+        self.assertEqual(added_player.cost, 5)
 
 
 if __name__ == '__main__':
