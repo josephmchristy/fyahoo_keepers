@@ -6,7 +6,6 @@ import openpyxl
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-arg_year = str(sys.argv[1])
 
 
 def getDraftResults(year):
@@ -36,10 +35,11 @@ def getDraftResults(year):
             owner = row[2]
             round_players.append((player, owner))
 
-    # for round in draft_results:
+    # Add the last round to the draft results
+    if round_players:
+        draft_results.append(round_players)
+
+    #for round in draft_results:
     #    logging.debug(round)
 
     return draft_results
-
-
-getDraftResults(arg_year)
