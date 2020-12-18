@@ -56,7 +56,7 @@ for transaction in root.iter('transaction'):
             p_transaction_name = player_name.find('full').text
             # Get the transaction type (add, drop, or trade)
             p_transaction_type = transaction_data.find('type').text
-            # If a player is added via trade or add, get the new owner and check for waiver 
+            # If a player is added via trade or add, get the new owner and check for waiver
             if p_transaction_type == 'trade' or p_transaction_type == 'add':
                 p_transaction_owner = transaction_data.find('destination_team_name').text[0:5]
                 p_source_type = transaction_data.find('source_type').text
@@ -66,11 +66,12 @@ for transaction in root.iter('transaction'):
             else:
                 p_transaction_owner = ''
             # Add player transaction data to the transactions list
-            p_transaction = {'date': transaction_date, 'type': p_transaction_type, 'owner': p_transaction_owner, 'player': p_transaction_name}
+            p_transaction = {'date': transaction_date, 'type': p_transaction_type,
+                             'owner': p_transaction_owner, 'player': p_transaction_name}
             transactions_list.append(p_transaction)
 
 counter = 0
 for transaction in transactions_list:
     counter += 1
     if transaction['type'] == 'trade':
-            print(transaction)
+        print(transaction)
