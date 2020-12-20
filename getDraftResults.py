@@ -32,7 +32,7 @@ def getDraftResults(year):
         # Insert players and owner into current round list
         if row[1] is not None:
             player = row[1].split("(")[0]
-            owner = row[2]
+            owner = row[2].split(".")[0]
             round_players.append((player, owner))
 
     # Add the last round to the draft results

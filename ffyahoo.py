@@ -3,6 +3,8 @@
 import xml.etree.ElementTree as ET
 import re
 import datetime
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 from yahoo_oauth import OAuth2
 
@@ -22,17 +24,33 @@ game_league_ids = {
     '2020': ('399', '414682')
 }
 
-# Get the roster for a team
-req_url = url + "/team/" + "399.l.414682.t.2/roster/players"
-r = oauth.session.get(req_url)
-xmlstring = r.text
-xmlstring = re.sub(' xmlns="[^"]+"', '', xmlstring, count=1)
-root = ET.fromstring(xmlstring)
-for player in root.iter('player'):
-    player_name = player.find('name')
-    player_fullname = player_name.find('full')
-    print(player_fullname.text)
 
+## Get the roster for a team
+#req_url = url + "/team/" + "399.l.414682.t.2/roster/players"
+#r = oauth.session.get(req_url)
+#xmlstring = r.text
+#xmlstring = re.sub(' xmlns="[^"]+"', '', xmlstring, count=1)
+#root = ET.fromstring(xmlstring)
+#for player in root.iter('player'):
+#    player_name = player.find('name')
+#    player_fullname = player_name.find('full')
+#    print(player_fullname.text)
+
+
+# Get owners for the league
+def getOwners(year):
+    g_id = game_league_ids[year][0]
+    l_id = game_league_ids[year][1]
+    req_url = url + "/league/"+g_id+".l."+l_id+"/teams"
+    r = oauth.session.get(req_url)
+    xmlstring = r.text
+    xmlstring = re.sub(' xmlns="[^"]+"', '', xmlstring, count=1)
+    root = ET.fromstring(xmlstring)
+    teams_list = []
+    for team in root.iter('team'):
+        team_name = team.find('name').text
+        teams_list.append(team_name)
+    return teams_list
 
 # Get the transactions for the league
 def getTransactions(year):
@@ -62,7 +80,7 @@ def getTransactions(year):
                 p_transaction_type = transaction_data.find('type').text
                 # If a player is added via trade or add, get the new owner and check for waiver
                 if p_transaction_type == 'trade' or p_transaction_type == 'add':
-                    p_transaction_owner = transaction_data.find('destination_team_name').text[0:5]
+                    p_transaction_owner = transaction_data.find('destination_team_name').text
                     p_source_type = transaction_data.find('source_type').text
                     if p_source_type == 'waivers':
                         p_transaction_type = 'waiver'
@@ -74,7 +92,6 @@ def getTransactions(year):
                                  'owner': p_transaction_owner, 'player': p_transaction_name}
                 transactions_list.append(p_transaction)
     return transactions_list
-
 
 #counter = 0
 #transactions_list = getTransactions()

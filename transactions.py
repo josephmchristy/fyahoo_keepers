@@ -4,20 +4,28 @@ import datetime
 import logging
 import getDraftResults
 import ffyahoo
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 logging.basicConfig(level=logging.DEBUG)
 
+year = '2020'
 players = {}
 rosters = {}
-draft_results = getDraftResults.getDraftResults('2014')
-transactions = ffyahoo.getTransactions('2014')
+owners = ffyahoo.getOwners(year)
+draft_results = getDraftResults.getDraftResults(year)
+transactions = ffyahoo.getTransactions(year)
 
 
-# Input drafter players into player list
+# Input drafted players into player list
 for player_cost, draft_round in enumerate(draft_results):
     for draft_player in draft_round:
         player_name = draft_player[0]
-        owner_name = draft_player[1][:5]
+        owner_name = draft_player[1]
+        for owner in owners:
+            if owner_name in owner:
+                owner_name = owner
+                break
         players[player_name] = {'owner': owner_name, 'cost': player_cost}
 
 
@@ -72,6 +80,7 @@ for curr_player in players:
 # Print rosters
 for roster in rosters:
     curr_roster = rosters[roster]
+    curr_roster = sorted(curr_roster, key=lambda k: k[1])
     print(roster)
     for player in curr_roster:
         print("Player: {}, Cost: {}".format(player[0], player[1]))
