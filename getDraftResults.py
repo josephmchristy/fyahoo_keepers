@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def getDraftResults(year):
-    os.chdir('.\\DraftResults')
+    #os.chdir('.\\DraftResults')
     draft_wb = openpyxl.load_workbook('DraftResults.xlsx')
     draft_sheet = draft_wb[year]
 
