@@ -1,7 +1,5 @@
 #! python
 
-import sys
-import os
 import openpyxl
 import logging
 
@@ -9,7 +7,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def getDraftResults(year):
-    #os.chdir('.\\DraftResults')
+    # os.chdir('.\\DraftResults')
     draft_wb = openpyxl.load_workbook('DraftResults.xlsx')
     draft_sheet = draft_wb[year]
 
@@ -39,7 +37,7 @@ def getDraftResults(year):
     if round_players:
         draft_results.append(round_players)
 
-    #for round in draft_results:
+    # for round in draft_results:
     #    logging.debug(round)
 
     return draft_results

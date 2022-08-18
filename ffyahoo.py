@@ -1,12 +1,12 @@
 #! python
 
+from yahoo_oauth import OAuth2
+
 import xml.etree.ElementTree as ET
 import re
 import datetime
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-
-from yahoo_oauth import OAuth2
 
 oauth = OAuth2(None, None, from_file='private.json')
 
@@ -22,17 +22,17 @@ game_league_ids = {
     '2018': ('380', '966146'),
     '2019': ('390', '655835'),
     '2020': ('399', '414682'),
-    '2021': ('406','653151')
+    '2021': ('406','653151'),
 }
 
 
-## Get the roster for a team
-#req_url = url + "/team/" + "399.l.414682.t.2/roster/players"
-#r = oauth.session.get(req_url)
-#xmlstring = r.text
-#xmlstring = re.sub(' xmlns="[^"]+"', '', xmlstring, count=1)
-#root = ET.fromstring(xmlstring)
-#for player in root.iter('player'):
+# Get the roster for a team
+# req_url = url + "/team/" + "399.l.414682.t.2/roster/players"
+# r = oauth.session.get(req_url)
+# xmlstring = r.text
+# xmlstring = re.sub(' xmlns="[^"]+"', '', xmlstring, count=1)
+# root = ET.fromstring(xmlstring)
+# for player in root.iter('player'):
 #    player_name = player.find('name')
 #    player_fullname = player_name.find('full')
 #    print(player_fullname.text)
@@ -52,6 +52,7 @@ def getOwners(year):
         team_name = team.find('name').text
         teams_list.append(team_name)
     return teams_list
+
 
 # Get the transactions for the league
 def getTransactions(year):
@@ -95,9 +96,8 @@ def getTransactions(year):
 
     return transactions_list
 
-#counter = 0
-#transactions_list = getTransactions()
-#for transaction in transactions_list:
+# counter = 0
+# transactions_list = getTransactions()
+# for transaction in transactions_list:
 #    counter += 1
 #    print(transaction)
-

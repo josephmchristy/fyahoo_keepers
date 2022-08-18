@@ -66,7 +66,7 @@ def getKeepers(wb, year):
             dropPlayer(transaction, players)
         else:
             addPlayer(transaction, players)
-    
+
     # Add players to rosters
     for curr_player in players:
         player = players[curr_player]
@@ -76,14 +76,14 @@ def getKeepers(wb, year):
             rosters[player['owner']] = [(curr_player, player['cost'])]
         else:
             rosters[player['owner']].append((curr_player, player['cost']))
-    
-    ## Print rosters
-   # for roster in rosters:
-   #     curr_roster = rosters[roster]
-   #     curr_roster = sorted(curr_roster, key=lambda k: k[1])
-   #     print(roster)
-   #     for player in curr_roster:
-   #         print("Player: {}, Cost: {}".format(player[0], player[1]))
+
+    # Print rosters
+    # for roster in rosters:
+    #     curr_roster = rosters[roster]
+    #     curr_roster = sorted(curr_roster, key=lambda k: k[1])
+    #     print(roster)
+    #     for player in curr_roster:
+    #         print("Player: {}, Cost: {}".format(player[0], player[1]))
 
     ws = wb.create_sheet(year)
     ws.title = year
@@ -103,11 +103,13 @@ def getKeepers(wb, year):
             ws.cell(row=curr_row, column=curr_col, value=player[1])
             curr_row += 1
 
+
 def main():
     wb = Workbook()
     for year in range(2021, 2022):
         getKeepers(wb, str(year))
     wb.save('keepers.xlsx')
+
 
 if __name__ == '__main__':
     main()
