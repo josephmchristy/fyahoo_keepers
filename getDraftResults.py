@@ -6,11 +6,10 @@ import openpyxl
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-arg_year = str(sys.argv[1])
 
 
 def getDraftResults(year):
-    os.chdir('.\\DraftResults')
+    #os.chdir('.\\DraftResults')
     draft_wb = openpyxl.load_workbook('DraftResults.xlsx')
     draft_sheet = draft_wb[year]
 
@@ -33,13 +32,14 @@ def getDraftResults(year):
         # Insert players and owner into current round list
         if row[1] is not None:
             player = row[1].split("(")[0]
-            owner = row[2]
+            owner = row[2].split(".")[0]
             round_players.append((player, owner))
 
-    # for round in draft_results:
+    # Add the last round to the draft results
+    if round_players:
+        draft_results.append(round_players)
+
+    #for round in draft_results:
     #    logging.debug(round)
 
     return draft_results
-
-
-getDraftResults(arg_year)
