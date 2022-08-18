@@ -1,13 +1,13 @@
 #! python
 
+from openpyxl import Workbook
+
 import datetime
 import logging
 import getDraftResults
 import ffyahoo
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-
-from openpyxl import Workbook
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -42,6 +42,7 @@ def dropPlayer(transaction, players):
     player['owner'] = ''
     player['drop_date'] = transaction['date']
 
+
 def getKeepers(wb, year):    
     players = {}
     rosters = {}
@@ -59,7 +60,7 @@ def getKeepers(wb, year):
                     owner_name = owner
                     break
             players[player_name] = {'owner': owner_name, 'drop_date': None, 'cost': player_cost}
-    
+
     # Process Transactions
     for transaction in reversed(transactions):
         if transaction['type'] == 'drop':

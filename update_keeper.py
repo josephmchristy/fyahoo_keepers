@@ -9,12 +9,12 @@ updated_value = {}
 # Get dict of "old" values
 with open('updated_keepers.csv', mode='r') as file:
     reader = csv.reader(file)
-    old_value = {rows[0]:rows[1] for rows in reader}
+    old_value = {rows[0]: rows[1] for rows in reader}
 
 # Get dict of "updated" draft values
 with open('updated_keepers.csv', mode='r') as file:
     reader = csv.reader(file)
-    new_value = {rows[2]:rows[3] for rows in reader}
+    new_value = {rows[2]: rows[3] for rows in reader}
 
 # For all the players in the old value list
 for player in old_value:
@@ -42,7 +42,7 @@ with open('updated_keepers(1).csv', mode='a') as file:
 
     writer.writeheader()
     for player in updated_value:
-        writer.writerow({fieldnames[0] : player, fieldnames[1] : updated_value[player]})
+        writer.writerow({fieldnames[0]: player, fieldnames[1]: updated_value[player]})
 
 
-#print(updated_value)
+# print(updated_value)
