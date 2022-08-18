@@ -43,7 +43,7 @@ def dropPlayer(transaction, players):
     player['drop_date'] = transaction['date']
 
 
-def getKeepers(wb, year):   
+def getKeepers(wb, year):
     players = {}
     rosters = {}
     owners = ffyahoo.getOwners(year)
