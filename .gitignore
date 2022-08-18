@@ -2,3 +2,4 @@ private.json
 .idea
 __pycache__
 transaction_examples.txt
+token.pickle

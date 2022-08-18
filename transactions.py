@@ -19,7 +19,7 @@ def addPlayer(transaction, players):
 
     # If player does not exist, create new player
     if player_name not in players:
-        players[player_name] = {'owner': '', 'drop_date': None, 'cost': 5}
+        players[player_name] = {'owner': '', 'drop_date': None, 'cost': 6}
 
     # Update player's owner and cost
     player = players[player_name]
@@ -29,8 +29,8 @@ def addPlayer(transaction, players):
         if transaction['date'] - datetime.timedelta(days=3) > player['drop_date']:
             transaction['type'] = 'add'
     if transaction['type'] == 'add':
-        if player['cost'] > 5:
-            player['cost'] = 5
+        if player['cost'] > 6:
+            player['cost'] = 6
 
 
 # Drop Player Transaction
@@ -58,7 +58,7 @@ def getKeepers(wb, year):
                 if owner_name in owner:
                     owner_name = owner
                     break
-            players[player_name] = {'owner': owner_name, 'cost': player_cost}
+            players[player_name] = {'owner': owner_name, 'drop_date': None, 'cost': player_cost}
     
     # Process Transactions
     for transaction in reversed(transactions):
@@ -105,7 +105,7 @@ def getKeepers(wb, year):
 
 def main():
     wb = Workbook()
-    for year in range(2014, 2021):
+    for year in range(2021, 2022):
         getKeepers(wb, str(year))
     wb.save('keepers.xlsx')
 

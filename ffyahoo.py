@@ -21,7 +21,8 @@ game_league_ids = {
     '2017': ('371', '675894'),
     '2018': ('380', '966146'),
     '2019': ('390', '655835'),
-    '2020': ('399', '414682')
+    '2020': ('399', '414682'),
+    '2021': ('406','653151')
 }
 
 
@@ -91,6 +92,7 @@ def getTransactions(year):
                 p_transaction = {'date': transaction_date, 'type': p_transaction_type,
                                  'owner': p_transaction_owner, 'player': p_transaction_name}
                 transactions_list.append(p_transaction)
+
     return transactions_list
 
 #counter = 0
