@@ -38,6 +38,6 @@ def getDraftResults(year):
         draft_results.append(round_players)
 
     # for round in draft_results:
-    #    logging.debug(round)
+    #     print(round)
 
     return draft_results

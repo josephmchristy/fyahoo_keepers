@@ -22,11 +22,12 @@ game_league_ids = {
     '2018': ('380', '966146'),
     '2019': ('390', '655835'),
     '2020': ('399', '414682'),
-    '2021': ('406','653151')
+    '2021': ('406','653151'),
+    '2022': ('414', '671086')
 }
 
 
-# Get the roster for a team
+# # Get the roster for a team
 # req_url = url + "/team/" + "399.l.414682.t.2/roster/players"
 # r = oauth.session.get(req_url)
 # xmlstring = r.text
