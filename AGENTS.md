@@ -10,6 +10,7 @@ Prioritize preserving existing keeper calculations and historical behavior over 
 
 * Make small, focused changes.
 * Do not rewrite working code solely for style or modernization.
+* Use the repo-local .venv for Python commands; never install dependencies globally.
 * Preserve existing inputs and generated outputs unless a task explicitly requires changing them.
 * Treat historical keeper outputs as regression evidence when available.
 * Separate Yahoo/API concerns from keeper-rule calculations where practical.

@@ -5,3 +5,4 @@ transaction_examples.txt
 token.pickle
 .DS_Store
 myEnv/
+.venv/
